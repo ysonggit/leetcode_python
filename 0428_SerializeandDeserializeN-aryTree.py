@@ -23,5 +23,4 @@ class Codec:
                     root.children.append(detuplify(c))
                 return root
             return None
-        t = json.loads(data)
-        return detuplify(t)
+        return detuplify(json.loads(data))
