@@ -24,3 +24,28 @@ class BoundedBlockingQueue(object):
     
     def size(self) -> int:
         return len(self.nums)    
+
+
+from threading import Semaphore
+class BoundedBlockingQueue1(object):
+
+    def __init__(self, capacity: int):
+        self.n = capacity
+        self.e = Semaphore(self.n)
+        self.d = Semaphore(0)
+        self.nums = deque([])
+        
+    def enqueue(self, element: int) -> None:
+        self.e.acquire()
+        self.nums.append(element)
+        self.d.release()
+            
+    def dequeue(self) -> int:
+        res = 0
+        self.d.acquire()
+        res = self.nums.popleft()
+        self.e.release()
+        return res
+    
+    def size(self) -> int:
+        return len(self.nums)  
