@@ -50,8 +50,3 @@ class TreeBuilder(object):
                 stack.append(OpNode(token, left, right))
         return stack[-1]
 		
-"""
-Your TreeBuilder object will be instantiated and called as such:
-obj = TreeBuilder();
-expTree = obj.buildTree(postfix);
-ans = expTree.evaluate();
