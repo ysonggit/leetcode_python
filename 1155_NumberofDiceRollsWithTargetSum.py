@@ -4,7 +4,7 @@ class Solution:
         # dp[i][j] = The number of ways we can roll i dice to get a target of j.
         # dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j - 2] + ... + dp[i - 1][j - k] for k in 1 .. f 
         '''
-        2 dice, with 5 faces [1, 2, 3, 4, 5], 
+        2 dice, with 6 faces [1, 2, 3, 4, 5, 6], 
         target is 7. 
         | dice \ target  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
         |----------------|---|---|---|---|---|---|---|---|
