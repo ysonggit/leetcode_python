@@ -1,0 +1,17 @@
+class Solution:
+    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+        # start/left of building's heights + end/right building's heights (as 0)
+        events = sorted([(l, -h, r) for l, r, h in buildings] + [(r, 0, 0) for _, r, _ in buildings])
+        res= [[0, 0]]            # [x, height]
+        hp = [(0, float("inf"))] # [-height, ending_pos]
+        for start, negH, end in events:
+            # 1. pop building which ended
+            # 2. if it is start-building event, add to priority queue
+            # 3. if prev keypoint's height != current highest height, update the res
+            while hp[0][1] <= start:
+                heapq.heappop(hp)
+            if negH:
+                heapq.heappush(hp, (negH, end))
+            if res[-1][1] != -hp[0][0]:
+                res.append([start, -hp[0][0]])
+        return res[1:]
