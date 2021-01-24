@@ -1,19 +1,22 @@
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        # using a min heap of size k
         if not lists:
             return None
-        h = [(head.val, i) for i, head in enumerate(lists) if head]
-        heapq.heapify(h)
-        dummy = ListNode('#')
+        pq = []
+        for i in range(len(lists)):
+            if lists[i]:
+                pq.append((lists[i].val, i))
+        heapq.heapify(pq)
+        dummy = ListNode(-1)
         cur = dummy
-        while h:
-            idx = heapq.heappop(h)[1]
+        while pq:
+            val, idx = heapq.heappop(pq)
             head = lists[idx]
             if head:
-                head_sub = head.next
                 cur.next = head
                 cur = cur.next
-                if head_sub:
-                    lists[idx] = head_sub
-                    heapq.heappush(h, (head_sub.val, idx))
+                if head.next:
+                    lists[idx] = head.next
+                    heapq.heappush(pq, (lists[idx].val, idx))  
         return dummy.next
