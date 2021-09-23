@@ -1,3 +1,4 @@
+'''
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -39,6 +40,23 @@ class Solution:
                 if i + j <= len(text):
                     cur = text[i:i+j]
                     if trie.search(cur):
+                        res.append([i,i+j-1])
+        res.sort()
+        return res
+ '''  
+ class Solution:
+    def indexPairs(self, text: str, words: List[str]) -> List[List[int]]:
+        res = []
+        minWordLen, maxWordLen = len(text), 0
+        for word in words:
+            minWordLen = min(minWordLen, len(word))
+            maxWordLen = max(maxWordLen, len(word))
+        wordSet = set(words)
+        for i in range(len(text)):
+            for j in range(minWordLen, maxWordLen+1):
+                if i + j <= len(text):
+                    cur = text[i:i+j]
+                    if cur in wordSet:
                         res.append([i,i+j-1])
         res.sort()
         return res
